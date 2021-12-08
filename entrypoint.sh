@@ -27,6 +27,10 @@ while true; do
     i=11
   fi
 
+  # display all available folders
+  echo "IMAP FOLDER LIST"
+  isbg --imaphost="$IMAPHOST" --imapuser="$IMAPUSER" --imappasswd="$IMAPPASSWD" --imaplist
+
   # learn all hamboxes
   for box in "${learnhamboxes[@]}"; do
     isbg \
@@ -37,7 +41,8 @@ while true; do
       --noninteractive \
       --trackfile="/track/$TRACKFILE" \
       --learnhambox="$box" \
-      --teachonly
+      --teachonly \
+      --spaminbox="$SPAMINBOX"
   done
 
   # learn all spamboxes
@@ -51,7 +56,8 @@ while true; do
       --trackfile="/track/$TRACKFILE" \
       --learnspambox="$box" \
       --learnthendestroy \
-      --teachonly
+      --teachonly \
+      --spaminbox="$SPAMINBOX"
   done
 
   isbg \
@@ -61,11 +67,12 @@ while true; do
     --spamc \
     --noninteractive \
     --trackfile="/track/$TRACKFILE" \
-    --noreport #--delete
+    --noreport \
+    --spaminbox="$SPAMINBOX"
 
   # decrease counter
   ((i=i-1))
 
   # sleep for 5 minutes
-  sleep 300
+  sleep 30    
 done
